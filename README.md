@@ -80,10 +80,10 @@ If none of these succeed, `commit` is `null` and a warning is logged at startup.
 
 `requests/*.http` contains ready-made requests for the endpoints. They use the variables `{{host}}` and `{{origin}}`, defined per environment:
 
-| Environment | `host`                                                    | `origin`                |
-| ----------- | --------------------------------------------------------- | ----------------------- |
-| `local`     | `http://localhost:3000` (start it with `bun run dev`)     | `http://localhost:5173` |
-| `deployed`  | `https://familly-budget-be-container-latest.onrender.com` | `http://localhost:5173` |
+| Environment | `host`                                                | `origin`                |
+| ----------- | ----------------------------------------------------- | ----------------------- |
+| `local`     | `http://localhost:3000` (start it with `bun run dev`) | `http://localhost:5173` |
+| `deployed`  | `https://familly-budget-be.onrender.com`              | `http://localhost:5173` |
 
 **WebStorm** has the HTTP Client built in, no plugin needed. It reads the environments from `requests/http-client.env.json`.
 
@@ -96,7 +96,7 @@ If none of these succeed, `commit` is `null` and a warning is logged at startup.
 ```json
 "rest-client.environmentVariables": {
   "local": { "host": "http://localhost:3000", "origin": "http://localhost:5173" },
-  "deployed": { "host": "https://familly-budget-be-container-latest.onrender.com", "origin": "http://localhost:5173" }
+  "deployed": { "host": "https://familly-budget-be.onrender.com", "origin": "http://localhost:5173" }
 }
 ```
 
