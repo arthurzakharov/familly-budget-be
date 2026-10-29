@@ -3,7 +3,7 @@ import type { CommitInfo } from "@/types/commit-info";
 import type { HealthResponse } from "@/types/responses";
 
 /**
- * Liveness endpoints at `/` and `/health` (used by the Docker HEALTHCHECK).
+ * Liveness endpoint at `/health` (used by the Docker HEALTHCHECK).
  * The response is built once at startup; it never changes at runtime.
  */
 export function createHealthRoutes(commitInfo: CommitInfo | null) {
@@ -15,7 +15,5 @@ export function createHealthRoutes(commitInfo: CommitInfo | null) {
     },
   };
 
-  return new Hono()
-    .get("/", (c) => c.json(body))
-    .get("/health", (c) => c.json(body));
+  return new Hono().get("/health", (c) => c.json(body));
 }

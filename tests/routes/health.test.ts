@@ -5,25 +5,34 @@ import { commitInfoFixture } from "@tests/helpers/fixtures";
 import { createTestLog } from "@tests/helpers/log";
 
 describe("health routes", () => {
-  for (const path of ["/health", "/"]) {
-    test(`GET ${path} returns ok status with commit info`, async () => {
+  test("GET /health returns ok status with commit info", async () => {
+    const { log } = createTestLog();
+    const app = createApp({ log, commitInfo: commitInfoFixture, origin: [] });
+
+    const res = await app.request("/health");
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({
+      status: "ok",
+      commit: {
+        shortHash: commitInfoFixture.shortHash,
+        date: commitInfoFixture.date,
+      },
+    });
+  });
+
+  for (const [method, path] of [
+    ["GET", "/"],
+    ["POST", "/health"],
+  ] as const) {
+    test(`${method} ${path} is not found`, async () => {
       const { log } = createTestLog();
-      const app = createApp({
-        log,
-        commitInfo: commitInfoFixture,
-        origin: [],
-      });
+      const app = createApp({ log, commitInfo: commitInfoFixture, origin: [] });
 
-      const res = await app.request(path);
+      const res = await app.request(path, { method });
 
-      expect(res.status).toBe(200);
-      expect(await res.json()).toEqual({
-        status: "ok",
-        commit: {
-          shortHash: commitInfoFixture.shortHash,
-          date: commitInfoFixture.date,
-        },
-      });
+      expect(res.status).toBe(404);
+      expect(await res.json()).toMatchObject({ error: "Not Found" });
     });
   }
 

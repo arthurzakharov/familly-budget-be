@@ -55,7 +55,7 @@ All configuration comes from env vars. Server settings are validated on startup 
 
 ## Endpoints
 
-- `GET /` and `GET /health` — `{ status: "ok", commit: { shortHash, date } | null }`. The full hash, message and author are only written to the startup log, not exposed publicly.
+- `GET /health` — `{ status: "ok", commit: { shortHash, date } | null }`. The full hash, message and author are only written to the startup log, not exposed publicly.
 - Errors — `{ error, requestId, issues? }` (`ErrorResponse` in the client). `requestId` matches the `X-Request-Id` response header and the server logs, so a frontend can show it for support requests:
 
   | Status | When                                                                                             |

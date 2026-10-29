@@ -1,7 +1,7 @@
 ### Health check
 GET {{host}}/health
 
-### Health check at root
+### Root is not a route: JSON 404
 GET {{host}}/
 
 ### Reuses the given request id (echoed in the X-Request-Id response header)
